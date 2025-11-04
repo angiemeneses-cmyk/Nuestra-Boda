@@ -1,264 +1,299 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=5.0">
-    <title>Nuestra Boda – Margarita y Harold</title>
-    <link rel="icon" href="favicon.ico">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Georgia', serif;
-            color: #1f2937;
-            overflow-x: hidden;
-            background: linear-gradient(to bottom, #fff1f2, #ffffff, #fff1f2);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra Boda – Margarita y Harold</title>
+  <link rel="icon" href="favicon.ico">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap');
 
-        /* Corazones flotantes */
-        .floating-hearts { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        .heart { position: absolute; color: #fb7185; opacity: 0.1; animation: float linear infinite; }
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); }
-            50% { transform: translateY(-20vh) rotate(180deg); }
-        }
+    :root {
+      --rosa: #e9c3c8;
+      --rosado: #e4a0a8;
+      --vino: #8b3e50;
+      --gris: #555;
+      --beige: #fdf9f8;
+    }
 
-        /* Hero */
-        .hero {
-            position: relative; height: 100vh; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('BODA.jpg');
-            background-size: cover; background-position: center; color: white; overflow: hidden;
-        }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, transparent, rgba(225, 29, 72, 0.3)); }
-        .hero-content { position: relative; z-index: 10; animation: fadeIn 1.5s ease-out; }
-        .hero-divider { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-        .hero-line { width: 80px; height: 1px; background: rgba(255, 255, 255, 0.5); }
-        .hero-heart { font-size: 2rem; color: #fda4af; animation: pulse 2s infinite; }
-        .hero h1 { font-size: 5rem; margin-bottom: 1.5rem; letter-spacing: 0.1em; animation: slideDown 1s ease-out; }
-        .hero h1 .ampersand { color: #fda4af; }
-        .hero-quote { font-size: 1.5rem; max-width: 700px; line-height: 1.8; margin: 0 1.5rem; animation: slideUp 1s ease-out 0.3s both; }
-        .hero-verse { font-size: 1.2rem; color: #fda4af; font-style: italic; margin-top: 1rem; animation: slideUp 1s ease-out 0.5s both; }
-        .hero-date { display: flex; align-items: center; gap: 0.75rem; margin-top: 2rem; font-size: 1.5rem; letter-spacing: 0.2em; animation: slideUp 1s ease-out 0.7s both; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--gris);
+      background: var(--beige);
+      overflow-x: hidden;
+    }
 
-        /* Scroll mouse */
-        .scroll-indicator { position: absolute; bottom: 2.5rem; animation: bounce 2s infinite; }
-        .scroll-mouse { width: 24px; height: 40px; border: 2px solid white; border-radius: 20px; display: flex; align-items: flex-start; justify-content: center; padding: 8px; }
-        .scroll-wheel { width: 4px; height: 12px; background: white; border-radius: 2px; animation: scroll 1.5s infinite; }
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BODA.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
 
-        /* Música */
-        .music-btn {
-            position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
-            background: linear-gradient(135deg, #e11d48, #ec4899);
-            color: white; padding: 1rem; border-radius: 50%; border: none; cursor: pointer;
-            box-shadow: 0 10px 40px rgba(225, 29, 72, 0.4); transition: all 0.3s;
-        }
-        .music-btn:hover { transform: scale(1.1); box-shadow: 0 15px 50px rgba(225, 29, 72, 0.6); }
-        .music-btn.playing svg { animation: pulse 2s infinite; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
 
-        section { padding: 5rem 1.5rem; position: relative; }
-        .section-icon { margin: 0 auto 2rem; width: 48px; height: 48px; }
-        h2 { font-size: 2.5rem; color: #be123c; margin-bottom: 2rem; text-align: center; }
+    .hero h1 span { color: var(--rosa); }
 
-        /* Contador */
-        .countdown-section { background: linear-gradient(to right, #ffe4e6, #fce7f3, #ffe4e6); text-align: center; position: relative; overflow: hidden; }
-        .countdown-bg { position: absolute; inset: 0; opacity: 0.1; }
-        .countdown-bg-circle { position: absolute; width: 256px; height: 256px; background: #fb7185; border-radius: 50%; filter: blur(80px); }
-        .countdown-bg-circle:first-child { top: 0; left: 0; }
-        .countdown-bg-circle:last-child { bottom: 0; right: 0; background: #ec4899; }
-        .countdown-box { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); max-width: 500px; margin: 0 auto; padding: 2rem; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1); }
-        .countdown-time { font-size: 2.5rem; color: #9f1239; font-weight: 300; letter-spacing: 0.05em; }
+    .hero p {
+      font-style: italic;
+      font-size: 1.3rem;
+      max-width: 700px;
+    }
 
-        /* Vestimenta */
-        .dress-code-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1000px; margin: 3rem auto 0; }
-        .dress-card { padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }
-        .dress-card:hover { transform: scale(1.05); }
-        .dress-card-men { background: linear-gradient(135deg, #dbeafe, #e0e7ff); }
-        .dress-card-women { background: linear-gradient(135deg, #fce7f3, #ffe4e6); }
-        .dress-card h3 { font-size: 1.75rem; margin-bottom: 1rem; }
-        .dress-card-men h3 { color: #1e3a8a; }
-        .dress-card-women h3 { color: #9f1239; }
-        .dress-card p { line-height: 1.8; color: #374151; }
+    /* Contador circular */
+    .countdown-section {
+      text-align: center;
+      padding: 6rem 1.5rem;
+      background: #fff;
+    }
 
-        /* Eventos */
-        .event-section { background: linear-gradient(135deg, #fff1f2, #fce7f3); }
-        .event-section-alt { background: white; }
-        .event-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); max-width: 1000px; margin: 0 auto; }
-        .event-card-alt { background: linear-gradient(135deg, #fff1f2, #fce7f3); }
-        .event-info { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-        .event-date { display: flex; align-items: center; justify-content: center; gap: 0.75rem; font-size: 1.1rem; }
-        .event-time { font-size: 2rem; color: #e11d48; font-weight: 300; margin: 1rem 0; }
-        .event-divider { width: 80px; height: 1px; background: #fda4af; margin: 1.5rem auto; }
-        .event-location { color: #be123c; font-weight: bold; margin-bottom: 0.5rem; }
-        .event-address { color: #6b7280; }
+    .countdown-box {
+      background: var(--beige);
+      border-radius: 50%;
+      width: 260px;
+      height: 260px;
+      margin: 2rem auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(to right, #e11d48, #ec4899);
-            color: white; padding: 0.875rem 2rem; border-radius: 50px; text-decoration: none; transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(225, 29, 72, 0.3); border: none; cursor: pointer; font-size: 1rem; font-family: 'Georgia', serif;
-        }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(225, 29, 72, 0.5); }
+    .countdown-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--vino);
+    }
 
-        /* Formulario */
-        .form-section { background: linear-gradient(135deg, #fce7f3, #fff1f2, #fce7f3); text-align: center; }
-        .form-container { background: white; padding: 2.5rem; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); max-width: 600px; margin: 0 auto; }
-        .form-input { width: 100%; padding: 1rem; border: 2px solid #fda4af; border-radius: 0.75rem; font-size: 1rem; font-family: 'Georgia', serif; margin-bottom: 1rem; }
-        .form-radio-group { display: flex; justify-content: center; gap: 2rem; padding: 1rem; }
+    .countdown-values {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
 
-        /* Footer */
-        footer { background: linear-gradient(to right, #e11d48, #ec4899); color: white; text-align: center; padding: 3rem 1.5rem; }
-        footer .footer-heart { margin: 0 auto 1rem; animation: pulse 2s infinite; }
+    .countdown-values div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        /* Animaciones */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes scroll { 0% { transform: translateY(0); } 30% { transform: translateY(12px); } 100% { transform: translateY(12px); } }
+    .countdown-values span:first-child {
+      font-size: 2.2rem;
+      font-weight: 600;
+    }
 
-        /* Responsive */
-        @media (min-width: 768px) { .dress-code-grid { grid-template-columns: repeat(2, 1fr); } .hero h1 { font-size: 6rem; } }
-        @media (max-width: 640px) { .hero h1 { font-size: 3rem; } .hero-quote { font-size: 1.1rem; } }
-    </style>
+    .countdown-values span:last-child {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--vino);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    section { padding: 5rem 2rem; }
+
+    /* Tarjetas suaves */
+    .dress-card, .event-card {
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s;
+    }
+
+    .dress-card:hover, .event-card:hover { transform: translateY(-5px); }
+
+    .btn {
+      background: linear-gradient(to right, var(--rosa), var(--rosado));
+      border: none;
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    /* Formulario */
+    .form-section { background: var(--beige); text-align: center; }
+    .form-container {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Música */
+    .music-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: linear-gradient(135deg, var(--rosado), var(--vino));
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+
+    .music-btn:hover { transform: scale(1.1); }
+
+    /* Footer */
+    footer {
+      background: var(--vino);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    footer p { font-family: 'Poppins', sans-serif; font-size: 1rem; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.8rem; }
+      .countdown-box { width: 220px; height: 220px; }
+      .countdown-values span:first-child { font-size: 1.8rem; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="floating-hearts" id="hearts"></div>
+  <section class="hero">
+    <h1>Margarita <span>&</span> Harold</h1>
+    <p>"Más valen dos que uno, porque obtienen más fruto de su esfuerzo."<br><em>Eclesiastés 4:9</em></p>
+  </section>
 
-    <audio id="bgMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-    </audio>
-
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-    </button>
-
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-divider"><div class="hero-line"></div><span class="hero-heart">♥</span><div class="hero-line"></div></div>
-            <h1>Margarita <span class="ampersand">&</span> Harold</h1>
-            <p class="hero-quote">"Más valen dos que uno, porque obtienen más fruto de su esfuerzo."</p>
-            <p class="hero-verse">Eclesiastés 4:9</p>
-            <div class="hero-date"><span>15 • Noviembre • 2025</span></div>
+  <section class="countdown-section">
+    <h2>Faltan</h2>
+    <div class="countdown-box">
+      <div class="countdown-time" id="countdown">
+        <div class="countdown-values">
+          <div><span>00</span><span>Días</span></div>
+          <div><span>00</span><span>Horas</span></div>
+          <div><span>00</span><span>Min</span></div>
+          <div><span>00</span><span>Seg</span></div>
         </div>
-        <div class="scroll-indicator"><div class="scroll-mouse"><div class="scroll-wheel"></div></div></div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="countdown-section">
-        <div class="countdown-bg"><div class="countdown-bg-circle"></div><div class="countdown-bg-circle"></div></div>
-        <h2>Faltan</h2>
-        <div class="countdown-box"><p class="countdown-time" id="countdown">Cargando...</p></div>
-    </section>
+  <section>
+    <h2>Código de Vestimenta</h2>
+    <div class="dress-card"><h3>Caballeros</h3><p>Traje oscuro, camisa blanca y corbata.</p></div>
+    <div class="dress-card"><h3>Damas</h3><p>Vestido elegante (largo o midi). Evitar el blanco.</p></div>
+  </section>
 
-    <section class="dress-code-section">
-        <h2>Código de Vestimenta</h2>
-        <p style="text-align:center;">Formal / Elegante</p>
-        <div class="dress-code-grid">
-            <div class="dress-card dress-card-men"><h3>Caballeros</h3><p>Traje oscuro, camisa blanca y corbata.</p></div>
-            <div class="dress-card dress-card-women"><h3>Damas</h3><p>Vestido elegante (largo o midi). Evitar el blanco.</p></div>
-        </div>
-    </section>
+  <section>
+    <h2>Ceremonia</h2>
+    <div class="event-card">
+      <p><strong>15 de noviembre de 2025 - 10:00 a.m.</strong></p>
+      <p>Parroquia Juan Pablo Segundo<br>Barrio Campamento, carrera 16 19N-25, Urb.</p>
+      <a href="https://maps.app.goo.gl/BkKQshBozQyhcEC46" class="btn">Ver en mapa</a>
+    </div>
+  </section>
 
-    <section class="event-section">
-        <h2>Ceremonia de Boda</h2>
-        <div class="event-card">
-            <p class="event-time">15 de noviembre de 2025 - 10:00 a.m.</p>
-            <p class="event-location">Parroquia Juan Pablo Segundo</p>
-            <p class="event-address">Barrio Campamento, carrera 16 19N-25, Urb.</p>
-            <a href="https://maps.app.goo.gl/BkKQshBozQyhcEC46" class="btn">Ver en mapa</a>
-        </div>
-    </section>
+  <section>
+    <h2>Cena</h2>
+    <div class="event-card">
+      <p><strong>15 de noviembre de 2025 - 7:00 p.m.</strong></p>
+      <p>Casa de los novios<br>Barrio Ciudad Jardín, calle 19N #6a-59</p>
+      <a href="https://maps.app.goo.gl/wykze673rdxxcwoV7" class="btn">Ver en mapa</a>
+    </div>
+  </section>
 
-    <section class="event-section-alt">
-        <h2>Cena</h2>
-        <div class="event-card event-card-alt">
-            <p class="event-time">15 de noviembre de 2025 - 7:00 p.m.</p>
-            <p class="event-location">Casa de los novios</p>
-            <p class="event-address">Barrio Ciudad Jardín, calle 19N #6a-59</p>
-            <a href="https://maps.app.goo.gl/wykze673rdxxcwoV7" class="btn">Ver en mapa</a>
-        </div>
-    </section>
+  <section class="form-section">
+    <h2>Confirma tu Asistencia</h2>
+    <div class="form-container">
+      <form action="mailto:mhinestrozatorres@gmail.com" method="POST" enctype="text/plain">
+        <input type="text" name="Nombre" placeholder="Tu nombre completo" required class="form-input">
+        <input type="email" name="Correo" placeholder="Tu correo electrónico" required class="form-input">
+        <input type="number" name="Acompañantes" placeholder="Número de acompañantes" min="0" class="form-input">
+        <button type="submit" class="btn" style="width:100%;">Confirmar Asistencia</button>
+      </form>
+    </div>
+  </section>
 
-    <section class="form-section">
-        <h2>Confirma tu Asistencia</h2>
-        <p>Por favor confirma antes del 14 de noviembre de 2025</p>
-        <div class="form-container">
-            <form action="mailto:mhinestrozatorres@gmail.com" method="POST" enctype="text/plain">
-                <input type="text" name="Nombre" placeholder="Tu nombre completo" required class="form-input">
-                <input type="text" name="Intolerancias/alergias" placeholder="Intolerancias/alergias" required class="form-input">
-                <input type="number" name="Acompañantes" placeholder="Número de acompañantes" min="0" class="form-input">
-                <div class="form-radio-group">
-                    <label><input type="radio" name="Asistencia" value="Sí asistiré" required> Sí asistiré</label>
-                    <label><input type="radio" name="Asistencia" value="No asistiré"> No asistiré</label>
-                </div>
-                <button type="submit" class="btn" style="width:100%;justify-content:center;">Confirmar Asistencia</button>
-            </form>
-        </div>
-    </section>
+  <footer>
+    <p>Con todo nuestro amor</p>
+    <h3>Margarita & Harold</h3>
+    <p>15 • Noviembre • 2025</p>
+  </footer>
 
-    <footer>
-        <svg class="footer-heart" viewBox="0 0 24 24" style="width:32px;height:32px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        <p>Con todo nuestro amor</p>
-        <p class="footer-title">Margarita & Harold</p>
-        <p>15 • Noviembre • 2025</p>
-    </footer>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">♫</button>
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
 
-    <script>
-        // Corazones
-        function createHearts() {
-            const container = document.getElementById('hearts');
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = '♥';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.fontSize = (20 + Math.random() * 30) + 'px';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(heart);
-            }
-        }
+  <script>
+    // Música
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    function toggleMusic() {
+      if (music.paused) { music.play(); btn.style.opacity = '0.8'; }
+      else { music.pause(); btn.style.opacity = '1'; }
+    }
 
-        // Contador regresivo
-        function updateCountdown() {
-            const countDownDate = new Date("Nov 15, 2025 10:00:00").getTime();
-            const now = new Date().getTime();
-            const distance = countDownDate - now;
-
-            if (distance < 0) {
-                document.getElementById('countdown').textContent = "¡Hoy es el gran día! 💍";
-            } else {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById('countdown').textContent =
-                    `${days} días ${hours}h ${minutes}m ${seconds}s`;
-            }
-        }
-
-        setInterval(updateCountdown, 1000);
-        createHearts();
-        updateCountdown();
-
-        // Música
-        const music = document.getElementById('bgMusic');
-        const btn = document.getElementById('musicBtn');
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                btn.classList.add('playing');
-            } else {
-                music.pause();
-                btn.classList.remove('playing');
-            }
-        }
-
-        // Confirmación
-        document.querySelector('form').addEventListener('submit', () => {
-            alert('¡Gracias por confirmar tu asistencia! 💕');
-        });
-    </script>
+    // Contador tipo Invitatis
+    const countdown = document.getElementById("countdown");
+    const target = new Date("Nov 15, 2025 10:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = target - now;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+      countdown.innerHTML = `
+        <div class="countdown-values">
+          <div><span>${d}</span><span>Días</span></div>
+          <div><span>${h}</span><span>Horas</span></div>
+          <div><span>${m}</span><span>Min</span></div>
+          <div><span>${s}</span><span>Seg</span></div>
+        </div>`;
+    }, 1000);
+  </script>
 </body>
 </html>
+
 
