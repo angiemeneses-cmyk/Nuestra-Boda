@@ -6,7 +6,7 @@
   <title>Nuestra Boda – Margarita y Harold</title>
   <link rel="icon" href="favicon.ico">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap');
 
     :root {
       --rosa: #e9c3c8;
@@ -14,9 +14,11 @@
       --vino: #8b3e50;
       --gris: #555;
       --beige: #fdf9f8;
+      --blanco: #ffffff;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
       font-family: 'Poppins', sans-serif;
       color: var(--gris);
@@ -24,52 +26,112 @@
       overflow-x: hidden;
     }
 
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-in {
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    }
+
     /* Hero */
     .hero {
       height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('BODA.jpg');
+      background: linear-gradient(rgba(139, 62, 80, 0.3), rgba(0,0,0,0.4)), url('BODA.jpg');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(to bottom, transparent, var(--beige));
     }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 4rem;
-      letter-spacing: 2px;
-      margin-bottom: 1rem;
+      font-size: 5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      animation: fadeInUp 1.2s ease-out;
     }
 
-    .hero h1 span { color: var(--rosa); }
+    .hero h1 span { 
+      color: var(--rosa);
+      font-style: italic;
+    }
 
     .hero p {
       font-style: italic;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       max-width: 700px;
+      line-height: 1.8;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+      animation: fadeInUp 1.5s ease-out;
     }
 
     /* Contador circular */
     .countdown-section {
       text-align: center;
       padding: 6rem 1.5rem;
-      background: #fff;
+      background: linear-gradient(135deg, #fff 0%, var(--beige) 100%);
     }
 
     .countdown-box {
-      background: var(--beige);
+      background: linear-gradient(135deg, var(--blanco), var(--rosa));
       border-radius: 50%;
-      width: 260px;
-      height: 260px;
-      margin: 2rem auto;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      width: 280px;
+      height: 280px;
+      margin: 3rem auto;
+      box-shadow: 0 10px 40px rgba(139, 62, 80, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .countdown-box::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rosado), var(--vino));
+      opacity: 0.3;
+      z-index: -1;
     }
 
     .countdown-time {
@@ -84,7 +146,7 @@
     .countdown-values {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     .countdown-values div {
@@ -94,107 +156,260 @@
     }
 
     .countdown-values span:first-child {
-      font-size: 2.2rem;
-      font-weight: 600;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
     }
 
     .countdown-values span:last-child {
-      font-size: 0.8rem;
-      letter-spacing: 1px;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      margin-top: 0.3rem;
+      opacity: 0.8;
     }
 
     h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      font-weight: 600;
       color: var(--vino);
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       text-align: center;
-    }
-
-    section { padding: 5rem 2rem; }
-
-    /* Tarjetas suaves */
-    .dress-card, .event-card {
-      background: #fff;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      transition: transform 0.3s;
-    }
-
-    .dress-card:hover, .event-card:hover { transform: translateY(-5px); }
-
-    .btn {
-      background: linear-gradient(to right, var(--rosa), var(--rosado));
-      border: none;
-      color: white;
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-family: 'Poppins', sans-serif;
-      text-decoration: none;
+      position: relative;
       display: inline-block;
+      width: 100%;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(to right, var(--rosa), var(--rosado));
+      border-radius: 2px;
+    }
+
+    section { 
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Código de vestimenta mejorado */
+    .dresscode-invitatis {
+      background: var(--blanco);
+      padding: 6rem 2rem;
+    }
+
+    .dress-icons {
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+      flex-wrap: wrap;
+      margin: 4rem 0;
+    }
+
+    .dress-item {
+      text-align: center;
+      transition: transform 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .dress-item:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+
+    .dress-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .dress-icon {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 5px 15px rgba(139, 62, 80, 0.2));
       transition: all 0.3s ease;
     }
 
+    .dress-item:hover .dress-icon {
+      transform: scale(1.1) rotate(5deg);
+      filter: drop-shadow(0 8px 20px rgba(139, 62, 80, 0.3));
+    }
+
+    .dress-item p {
+      font-size: 1.1rem;
+      color: var(--gris);
+    }
+
+    .dress-item strong {
+      color: var(--vino);
+      font-size: 1.3rem;
+    }
+
+    .dress-note {
+      text-align: center;
+      font-style: italic;
+      color: var(--vino);
+      font-size: 1.1rem;
+      margin-top: 3rem;
+    }
+
+    .hearts {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--rosado);
+      margin-top: 1.5rem;
+      letter-spacing: 1rem;
+    }
+
+    /* Tarjetas suaves */
+    .event-card {
+      background: var(--blanco);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 3rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(233, 195, 200, 0.3);
+    }
+
+    .event-card:hover { 
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(139, 62, 80, 0.15);
+    }
+
+    .event-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .event-card strong {
+      color: var(--vino);
+      font-size: 1.3rem;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--rosado), var(--vino));
+      border: none;
+      color: white;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      box-shadow: 0 5px 15px rgba(139, 62, 80, 0.3);
+      letter-spacing: 0.5px;
+    }
+
     .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 62, 80, 0.4);
     }
 
     /* Formulario */
-    .form-section { background: var(--beige); text-align: center; }
+    .form-section { 
+      background: linear-gradient(135deg, var(--beige) 0%, #fff 100%);
+      text-align: center;
+    }
+
     .form-container {
       background: white;
-      border-radius: 1rem;
-      padding: 2rem;
+      border-radius: 20px;
+      padding: 3rem;
       max-width: 600px;
       margin: auto;
-      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border: 1px solid rgba(233, 195, 200, 0.3);
     }
 
     .form-input {
       width: 100%;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #f0f0f0;
+      border-radius: 12px;
       font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--rosado);
+      box-shadow: 0 0 0 3px rgba(228, 160, 168, 0.1);
     }
 
     /* Música */
     .music-btn {
       position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
+      bottom: 2rem;
+      right: 2rem;
       background: linear-gradient(135deg, var(--rosado), var(--vino));
       color: white;
       border: none;
       border-radius: 50%;
-      padding: 0.9rem;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 25px rgba(139, 62, 80, 0.3);
       transition: all 0.3s ease;
       z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .music-btn:hover { transform: scale(1.1); }
+    .music-btn:hover { 
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 12px 35px rgba(139, 62, 80, 0.4);
+    }
 
     /* Footer */
     footer {
-      background: var(--vino);
+      background: linear-gradient(135deg, var(--vino), #6d2f3f);
       color: #fff;
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
     }
 
-    footer p { font-family: 'Poppins', sans-serif; font-size: 1rem; }
+    footer p { 
+      font-family: 'Poppins', sans-serif; 
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    footer h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin: 1.5rem 0;
+      letter-spacing: 2px;
+    }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.8rem; }
-      .countdown-box { width: 220px; height: 220px; }
-      .countdown-values span:first-child { font-size: 1.8rem; }
+      .hero h1 { font-size: 3rem; letter-spacing: 2px; }
+      .hero p { font-size: 1.1rem; padding: 0 1rem; }
+      .countdown-box { width: 240px; height: 240px; }
+      .countdown-values { gap: 1rem; }
+      .countdown-values span:first-child { font-size: 2rem; }
+      h2 { font-size: 2.2rem; }
+      .dress-icons { gap: 3rem; }
+      .dress-icon { width: 80px; height: 80px; }
+      .event-card { padding: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .music-btn { width: 50px; height: 50px; bottom: 1.5rem; right: 1.5rem; }
     }
   </style>
 </head>
@@ -204,7 +419,7 @@
     <p>"Más valen dos que uno, porque obtienen más fruto de su esfuerzo."<br><em>Eclesiastés 4:9</em></p>
   </section>
 
-  <section class="countdown-section">
+  <section class="countdown-section animate-in">
     <h2>Faltan</h2>
     <div class="countdown-box">
       <div class="countdown-time" id="countdown">
@@ -217,57 +432,56 @@
       </div>
     </div>
   </section>
-  <!-- CÓDIGO DE VESTIMENTA estilo Invitatis -->
-  <section class="dresscode-invitatis">
+
+  <section class="dresscode-invitatis animate-in">
     <h2>Código de vestimenta</h2>
-  
+
     <div class="dress-icons">
       <div class="dress-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/2331/2331916.png" alt="Corbata" class="dress-icon">
-        <p><strong>Ellos:</strong> Formal</p>
+        <a href="https://www.flaticon.es/icono-gratis/corbata_2290551" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2290/2290551.png" alt="Corbata" class="dress-icon">
+        </a>
+        <p><strong>Ellos:</strong> Casual</p>
       </div>
-  
+
       <div class="dress-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/3431/3431373.png" alt="Vestido" class="dress-icon">
+        <a href="https://www.flaticon.es/icono-gratis/vestir_3994081" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/3994/3994081.png" alt="Vestido" class="dress-icon">
+        </a>
         <p><strong>Ellas:</strong> Divinas</p>
       </div>
     </div>
-  
+
     <p class="dress-note">Nos reservamos el color blanco</p>
     <div class="hearts">
       <span>♡</span><span>♡</span><span>♡</span>
     </div>
   </section>
-    <section>
-    <h2>Código de Vestimenta</h2>
-    <div class="dress-card"><h3>Caballeros</h3><p>Traje oscuro, camisa blanca y corbata.</p></div>
-    <div class="dress-card"><h3>Damas</h3><p>Vestido elegante (largo o midi). Evitar el blanco.</p></div>
-  </section>
 
-  <section>
+  <section class="animate-in">
     <h2>Ceremonia</h2>
     <div class="event-card">
       <p><strong>15 de noviembre de 2025 - 10:00 a.m.</strong></p>
       <p>Parroquia Juan Pablo Segundo<br>Barrio Campamento, carrera 16 19N-25, Urb.</p>
-      <a href="https://maps.app.goo.gl/BkKQshBozQyhcEC46" class="btn">Ver en mapa</a>
+      <a href="https://maps.app.goo.gl/BkKQshBozQyhcEC46" class="btn" target="_blank">Ver en mapa</a>
     </div>
   </section>
 
-  <section>
+  <section class="animate-in">
     <h2>Cena</h2>
     <div class="event-card">
       <p><strong>15 de noviembre de 2025 - 7:00 p.m.</strong></p>
       <p>Casa de los novios<br>Barrio Ciudad Jardín, calle 19N #6a-59</p>
-      <a href="https://maps.app.goo.gl/wykze673rdxxcwoV7" class="btn">Ver en mapa</a>
+      <a href="https://maps.app.goo.gl/wykze673rdxxcwoV7" class="btn" target="_blank">Ver en mapa</a>
     </div>
   </section>
 
-  <section class="form-section">
+  <section class="form-section animate-in">
     <h2>Confirma tu Asistencia</h2>
     <div class="form-container">
       <form action="mailto:mhinestrozatorres@gmail.com" method="POST" enctype="text/plain">
         <input type="text" name="Nombre" placeholder="Tu nombre completo" required class="form-input">
-        <input type="email" name="Correo" placeholder="Tu correo electrónico" required class="form-input">
+        <input type="text" name="Intolerancia/alergias" placeholder="Intolerancia/alergias" required class="form-input">
         <input type="number" name="Acompañantes" placeholder="Número de acompañantes" min="0" class="form-input">
         <button type="submit" class="btn" style="width:100%;">Confirmar Asistencia</button>
       </form>
@@ -290,28 +504,63 @@
     const music = document.getElementById('bgMusic');
     const btn = document.getElementById('musicBtn');
     function toggleMusic() {
-      if (music.paused) { music.play(); btn.style.opacity = '0.8'; }
-      else { music.pause(); btn.style.opacity = '1'; }
+      if (music.paused) { 
+        music.play(); 
+        btn.style.opacity = '0.8';
+      } else { 
+        music.pause(); 
+        btn.style.opacity = '1';
+      }
     }
 
-    // Contador tipo Invitatis
+    // Contador con formato de dos dígitos
     const countdown = document.getElementById("countdown");
     const target = new Date("Nov 15, 2025 10:00:00").getTime();
+    
+    function pad(num) {
+      return num.toString().padStart(2, '0');
+    }
+    
     setInterval(() => {
       const now = new Date().getTime();
       const diff = target - now;
+      
+      if (diff < 0) {
+        countdown.innerHTML = '<div class="countdown-values"><div><span>¡Hoy es el día!</span></div></div>';
+        return;
+      }
+      
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((diff % (1000 * 60)) / 1000);
+      
       countdown.innerHTML = `
         <div class="countdown-values">
-          <div><span>${d}</span><span>Días</span></div>
-          <div><span>${h}</span><span>Horas</span></div>
-          <div><span>${m}</span><span>Min</span></div>
-          <div><span>${s}</span><span>Seg</span></div>
+          <div><span>${pad(d)}</span><span>Días</span></div>
+          <div><span>${pad(h)}</span><span>Horas</span></div>
+          <div><span>${pad(m)}</span><span>Min</span></div>
+          <div><span>${pad(s)}</span><span>Seg</span></div>
         </div>`;
     }, 1000);
+
+    // Animaciones al scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-in').forEach(el => {
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
